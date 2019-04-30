@@ -27,54 +27,97 @@
 #endif
 
 @class SBLockScreenViewControllerBase; 
-static void (*_logos_orig$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); 
+
 
 #line 7 "Tweak.xm"
+static void (*_logos_orig$normal$SBLockScreenViewControllerBase$viewDidLoad)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$normal$SBLockScreenViewControllerBase$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$normal$SBLockScreenViewControllerBase$jiggleLockIcon)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$normal$SBLockScreenViewControllerBase$jiggleLockIcon(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$normal$SBLockScreenViewControllerBase$prepareForUIUnlock)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$normal$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); 
 
-static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-	_logos_orig$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad(self, _cmd);
+	static void _logos_method$normal$SBLockScreenViewControllerBase$viewDidLoad(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+		_logos_orig$normal$SBLockScreenViewControllerBase$viewDidLoad(self, _cmd);
+		
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
 
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+		NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
 
-	NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
-
-	UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
-	[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
-	[self.view addSubview:aminImage];
+		UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
+		[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
+		[self.view addSubview:aminImage];
 
 
+	}
+
+	static void _logos_method$normal$SBLockScreenViewControllerBase$jiggleLockIcon(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+		_logos_orig$normal$SBLockScreenViewControllerBase$jiggleLockIcon(self, _cmd);
+
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *soundFilePath = [bundle pathForResource:@"amin"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+		player.numberOfLoops = 0;
+
+		[player play];
+	}
+
+	static void _logos_method$normal$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+		_logos_orig$normal$SBLockScreenViewControllerBase$prepareForUIUnlock(self, _cmd);
+
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+		player.numberOfLoops = 0;
+
+		[player play];	
+	}
+
+
+
+static void (*_logos_orig$legacy$SBLockScreenViewControllerBase$viewWillAppear)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$legacy$SBLockScreenViewControllerBase$viewWillAppear(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock)(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST, SEL); 
+
+	static void _logos_method$legacy$SBLockScreenViewControllerBase$viewWillAppear(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+		_logos_orig$legacy$SBLockScreenViewControllerBase$viewWillAppear(self, _cmd);
+		
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
+
+		UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
+		[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
+		[self.view addSubview:aminImage];
+
+
+	}
+
+	static void _logos_method$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
+		_logos_orig$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock(self, _cmd);
+
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+		player.numberOfLoops = 0;
+
+		[player play];	
+	}
+
+
+
+static __attribute__((constructor)) void _logosLocalCtor_5f2c3a91(int __unused argc, char __unused **argv, char __unused **envp) {
+	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+	if (version >= 11) {
+		{Class _logos_class$normal$SBLockScreenViewControllerBase = objc_getClass("SBLockScreenViewControllerBase"); MSHookMessageEx(_logos_class$normal$SBLockScreenViewControllerBase, @selector(viewDidLoad), (IMP)&_logos_method$normal$SBLockScreenViewControllerBase$viewDidLoad, (IMP*)&_logos_orig$normal$SBLockScreenViewControllerBase$viewDidLoad);MSHookMessageEx(_logos_class$normal$SBLockScreenViewControllerBase, @selector(jiggleLockIcon), (IMP)&_logos_method$normal$SBLockScreenViewControllerBase$jiggleLockIcon, (IMP*)&_logos_orig$normal$SBLockScreenViewControllerBase$jiggleLockIcon);MSHookMessageEx(_logos_class$normal$SBLockScreenViewControllerBase, @selector(prepareForUIUnlock), (IMP)&_logos_method$normal$SBLockScreenViewControllerBase$prepareForUIUnlock, (IMP*)&_logos_orig$normal$SBLockScreenViewControllerBase$prepareForUIUnlock);}
+	} else if (version < 11 && version >= 10) {
+		{Class _logos_class$legacy$SBLockScreenViewControllerBase = objc_getClass("SBLockScreenViewControllerBase"); MSHookMessageEx(_logos_class$legacy$SBLockScreenViewControllerBase, @selector(viewWillAppear), (IMP)&_logos_method$legacy$SBLockScreenViewControllerBase$viewWillAppear, (IMP*)&_logos_orig$legacy$SBLockScreenViewControllerBase$viewWillAppear);MSHookMessageEx(_logos_class$legacy$SBLockScreenViewControllerBase, @selector(prepareForUIUnlock), (IMP)&_logos_method$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock, (IMP*)&_logos_orig$legacy$SBLockScreenViewControllerBase$prepareForUIUnlock);}
+	} else {
+		
+	}
 }
-
-static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-	_logos_orig$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon(self, _cmd);
-
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
-
-	NSString *soundFilePath = [bundle pathForResource:@"amin"  ofType:@"m4a"];
-	NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-
-	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-
-	player.numberOfLoops = 0;
-
-	[player play];
-}
-
-static void _logos_method$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock(_LOGOS_SELF_TYPE_NORMAL SBLockScreenViewControllerBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
-	_logos_orig$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock(self, _cmd);
-
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
-
-	NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
-	NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-
-	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-
-	player.numberOfLoops = 0;
-
-	[player play];	
-}
-
-static __attribute__((constructor)) void _logosLocalInit() {
-{Class _logos_class$_ungrouped$SBLockScreenViewControllerBase = objc_getClass("SBLockScreenViewControllerBase"); MSHookMessageEx(_logos_class$_ungrouped$SBLockScreenViewControllerBase, @selector(viewDidLoad), (IMP)&_logos_method$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad, (IMP*)&_logos_orig$_ungrouped$SBLockScreenViewControllerBase$viewDidLoad);MSHookMessageEx(_logos_class$_ungrouped$SBLockScreenViewControllerBase, @selector(jiggleLockIcon), (IMP)&_logos_method$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon, (IMP*)&_logos_orig$_ungrouped$SBLockScreenViewControllerBase$jiggleLockIcon);MSHookMessageEx(_logos_class$_ungrouped$SBLockScreenViewControllerBase, @selector(prepareForUIUnlock), (IMP)&_logos_method$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock, (IMP*)&_logos_orig$_ungrouped$SBLockScreenViewControllerBase$prepareForUIUnlock);} }
-#line 52 "Tweak.xm"

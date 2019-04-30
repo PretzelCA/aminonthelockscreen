@@ -4,48 +4,94 @@
 @interface SBLockScreenViewControllerBase : UIViewController
 @end
 
+%group normal
 %hook SBLockScreenViewControllerBase
-- (void)viewDidLoad {
-	%orig;
-	
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+	- (void)viewDidLoad {
+		%orig;
+		
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
 
-	NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
+		NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
 
-	UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
-	[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
-	[self.view addSubview:aminImage];
+		UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
+		[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
+		[self.view addSubview:aminImage];
 
 
-}
+	}
 
--(void)jiggleLockIcon {
-	%orig;
+	-(void)jiggleLockIcon {
+		%orig;
 
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
 
-	NSString *soundFilePath = [bundle pathForResource:@"amin"  ofType:@"m4a"];
-	NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+		NSString *soundFilePath = [bundle pathForResource:@"amin"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
 
-	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
 
-	player.numberOfLoops = 0;
+		player.numberOfLoops = 0;
 
-	[player play];
-}
+		[player play];
+	}
 
--(void)prepareForUIUnlock {
-	%orig;
+	-(void)prepareForUIUnlock {
+		%orig;
 
-	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
 
-	NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
-	NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+		NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
 
-	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
 
-	player.numberOfLoops = 0;
+		player.numberOfLoops = 0;
 
-	[player play];	
-}
+		[player play];	
+	}
 %end
+%end
+
+%group legacy
+%hook SBLockScreenViewControllerBase
+	- (void)viewWillAppear {
+		%orig;
+		
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
+
+		UIView *aminImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:aminImagePath]];
+		[aminImage setFrame:CGRectMake(0, 0, 450, 800)];
+		[self.view addSubview:aminImage];
+
+
+	}
+
+	-(void)prepareForUIUnlock {
+		%orig;
+
+		NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+		NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
+		NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+		AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+		player.numberOfLoops = 0;
+
+		[player play];	
+	}
+%end
+%end
+
+%ctor {
+	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+	if (version >= 11) {
+		%init(normal);
+	} else if (version < 11 && version >= 10) {
+		%init(legacy);
+	} else {
+		// They should not be able to access this package but we should still do something
+	}
+}
