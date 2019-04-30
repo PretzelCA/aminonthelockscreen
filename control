@@ -1,0 +1,9 @@
+Package: gq.skyenet.aminonthelockscreen
+Name: Amin On The Lockscreen
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Put Amin on the lockscreen!
+Maintainer: Skye Viau
+Author: Skye Viau
+Section: Tweaks
