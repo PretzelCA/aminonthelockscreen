@@ -7,7 +7,7 @@
 %hook SBLockScreenViewControllerBase
 - (void)viewDidLoad {
 	%orig;
-
+	
 	NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
 
 	NSString *aminImagePath = [bundle pathForResource:@"amin" ofType:@"png"];
