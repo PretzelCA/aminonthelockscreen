@@ -1,7 +1,7 @@
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = AminOnTheLockscreen
-AminOnTheLockscreen_FILES = Tweak.xm
+AminOnTheLockscreen_FILES = Tweak.m
 
 BUNDLE_NAME = gq.skyenet.aminonthelockscreen
 gq.skyenet.aminonthelockscreen_INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries
