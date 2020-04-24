@@ -85,9 +85,47 @@
 %end
 %end
 
+%group newSpringboard
+%hook SBLockScreenLockingAndUnlocking
+	-(void)jiggleLockIcon {
+                %orig;
+
+                NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+                NSString *soundFilePath = [bundle pathForResource:@"amin"  ofType:@"m4a"];
+                NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+                AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+                player.numberOfLoops = 0;
+
+                [player play];
+        }
+
+        -(void)prepareForUIUnlock {
+                %orig;
+
+                NSBundle *bundle = [[[NSBundle alloc] initWithPath:kBundlePath] autorelease];
+
+                NSString *soundFilePath = [bundle pathForResource:@"aminUnlock"  ofType:@"m4a"];
+                NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+
+                AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
+                player.numberOfLoops = 0;
+
+                [player play];
+        }
+
+%end
+%end
+
 %ctor {
 	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-	if (version >= 11) {
+	if (version >= 13) {
+		%init(newSpringboard);
+	}
+	else if (version >= 11 && version < 13) {
 		%init(normal);
 	} else if (version < 11 && version >= 10) {
 		%init(legacy);
